@@ -16,15 +16,36 @@ class PlayerViewTests: XCTestCase {
   // TODO: this is definitly not what to do for a test,
   // cant instantiate PlayerView because it requires that
   // Store be well configured
-  func testSnapshot()  {
-//
-//    let store = Store.shared
-//    let recording = Recording(name: "Snapshot", uuid: UUID())
-//    recording.store = store
-//
-//    let view = PlayerView(recording: recording)
-//    let vc = UIHostingController(rootView: view)
-//
-//    assertSnapshot(matching: vc, as: .image)
+  func testStartSnapshot()  {
+    let store = Store(
+      initialValue: PlayerView.State(name: "Peter", duration: 100, position: 50, playState: .start),
+      reducer: playerViewReducer, environment: ())
+
+    let view = PlayerView(store: store.view)
+    let vc = UIHostingController(rootView: view)
+
+    assertSnapshot(matching: vc, as: .image)
+  }
+  
+  func testPauseSnapshot()  {
+    let store = Store(
+      initialValue: PlayerView.State(name: "Peter", duration: 100, position: 0, playState: .pause),
+      reducer: playerViewReducer, environment: ())
+
+    let view = PlayerView(store: store.view)
+    let vc = UIHostingController(rootView: view)
+
+    assertSnapshot(matching: vc, as: .image)
+  }
+  
+  func testResumeSnapshot()  {
+    let store = Store(
+      initialValue: PlayerView.State(name: "Peter", duration: 100, position: 0, playState: .resume),
+      reducer: playerViewReducer, environment: ())
+
+    let view = PlayerView(store: store.view)
+    let vc = UIHostingController(rootView: view)
+
+    assertSnapshot(matching: vc, as: .image)
   }
 }

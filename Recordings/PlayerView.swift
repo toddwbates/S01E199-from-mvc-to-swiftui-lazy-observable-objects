@@ -7,8 +7,17 @@
 //
 
 import SwiftUI
+import CasePaths
 
-let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, ()> {_,_,_ in
+let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, ()> { state, action, env in
+  switch action {
+  case let .setName(name):
+    state.name = name
+  case let .setPostion(position):
+    state.position = position
+  case .togglePlay:
+    state.playState = .pause
+  }
   return []
 }
 
@@ -21,9 +30,9 @@ struct PlayerView: View {
     var position: TimeInterval = 0
     
     public enum PlayState {
-      case atBegining
-      case playing
-      case paused
+      case start
+      case pause
+      case resume
     }
     
     var playState : PlayState
@@ -43,11 +52,11 @@ struct PlayerView: View {
   
   var playButtonTitle: String {
     switch store.value.playState {
-    case .atBegining:
+    case .start:
       return "Play"
-    case .playing:
+    case .pause:
       return "Pause"
-    case .paused:
+    case .resume:
       return "Resume"
     }
   }
@@ -57,7 +66,7 @@ struct PlayerView: View {
       HStack {
         Text("Name")
         TextField("Name",
-                  text: Binding(get: { self.store.value.name } , set: { self.store.send(.setName($0)) }))
+                  text: self.store.bind(\State.name , /Action.setName))
           .textFieldStyle(RoundedBorderTextFieldStyle())
       }
       HStack {
@@ -65,9 +74,9 @@ struct PlayerView: View {
         Spacer()
         Text(timeString(store.value.duration))
       }
-      Slider(value: Binding(get: { self.store.value.position } , set: { self.store.send(.setPostion($0)) }),
+      Slider(value: self.store.bind(\State.position , /Action.setPostion),
              in: 0...store.value.duration)
-      Button(playButtonTitle) { self.store.send(.togglePlay) }
+      Button(playButtonTitle, action: self.store.curry(.togglePlay))
         .buttonStyle(PrimaryButtonStyle())
       Spacer()
     }

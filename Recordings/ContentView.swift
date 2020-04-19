@@ -133,7 +133,7 @@ struct ContentView: View {
     if let store = ContentView.stores[recording.uuid] {
       return store.view
     }
-    let state = PlayerView.State(name: recording.name, duration: 100, playState: .atBegining)
+    let state = PlayerView.State(name: recording.name, duration: 100, playState: .start)
     let store = Store(initialValue: state, reducer: playerViewReducer.logging(), environment: ())
     ContentView.stores[recording.uuid] = store
     return store.view

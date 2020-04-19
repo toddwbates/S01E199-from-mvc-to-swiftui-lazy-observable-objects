@@ -19,28 +19,29 @@ class FolderListTests: XCTestCase {
     return folder
   }()
   
+  let itemBuilder : (Item)-> AnyView = { _ in AnyView( Text("next") )}
   func testSnapshot() throws {
-    let vc = UIHostingController(rootView: NavigationView(content: { FolderList(folder: folder) }))
+    let vc = UIHostingController(rootView: NavigationView(content: { FolderList(folder: folder, itemBuilder: itemBuilder) }))
     
     assertSnapshot(matching: vc, as: .image)
   }
   
   func testOnDelete() throws {
-    let list = FolderList(folder: folder)
+    let list = FolderList(folder: folder, itemBuilder: itemBuilder)
     
     list.onDelete(IndexSet(arrayLiteral: 0))
     XCTAssertEqual(folder.contents.count, 1)
   }
   
   func testOnCallback() {
-    let list = FolderList(folder: folder)
+    let list = FolderList(folder: folder, itemBuilder: itemBuilder)
     
     list.onCallback("Peter")
     XCTAssertEqual(folder.contents.count, 3)
   }
   
   func testOnCallbackWithNil() {
-    let list = FolderList(folder: folder)
+    let list = FolderList(folder: folder, itemBuilder: itemBuilder)
     
     list.onCallback(nil)
     XCTAssertEqual(folder.contents.count, 2)
@@ -63,7 +64,7 @@ class FolderListTests: XCTestCase {
 //  }
   
   func testPresentRecordingView() {
-    let list = FolderList(folder: folder)
+    let list = FolderList(folder: folder, itemBuilder: itemBuilder)
     
     let vc = UIHostingController(rootView: NavigationView(content: { list.presentRecordingView() }))
     
