@@ -35,6 +35,9 @@
 		B961E979244C857500FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
 		B961E97A244C85FF00FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
 		B961E97C244CA66200FBC70C /* RecordingViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E97B244CA66200FBC70C /* RecordingViewTests.swift */; };
+		B961E97E244CACE800FBC70C /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E97D244CACE800FBC70C /* PlayerView.swift */; };
+		B961E97F244CACE800FBC70C /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E97D244CACE800FBC70C /* PlayerView.swift */; };
+		B961E981244CAD5900FBC70C /* PlayerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E980244CAD5900FBC70C /* PlayerViewTests.swift */; };
 		B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12134244C687D00880DA4 /* FolderListTests.swift */; };
 		B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12142244C689600880DA4 /* UnitTestAppDelegate.swift */; };
 		B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12144244C689600880DA4 /* UnitTestSceneDelegate.swift */; };
@@ -80,6 +83,8 @@
 		B961E959244C6DAA00FBC70C /* FolderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderList.swift; sourceTree = "<group>"; };
 		B961E978244C857500FBC70C /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
 		B961E97B244CA66200FBC70C /* RecordingViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewTests.swift; sourceTree = "<group>"; };
+		B961E97D244CACE800FBC70C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		B961E980244CAD5900FBC70C /* PlayerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewTests.swift; sourceTree = "<group>"; };
 		B9B12132244C687D00880DA4 /* RecordingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecordingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B12134244C687D00880DA4 /* FolderListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListTests.swift; sourceTree = "<group>"; };
 		B9B12136244C687D00880DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +160,7 @@
 				170E52592424AC9300075F9F /* ContentView.swift */,
 				B961E959244C6DAA00FBC70C /* FolderList.swift */,
 				B961E978244C857500FBC70C /* RecordingView.swift */,
+				B961E97D244CACE800FBC70C /* PlayerView.swift */,
 				170E525B2424AC9400075F9F /* Assets.xcassets */,
 				170E52602424AC9400075F9F /* LaunchScreen.storyboard */,
 				170E52632424AC9400075F9F /* Info.plist */,
@@ -183,6 +189,7 @@
 			children = (
 				B9B12134244C687D00880DA4 /* FolderListTests.swift */,
 				B961E97B244CA66200FBC70C /* RecordingViewTests.swift */,
+				B961E980244CAD5900FBC70C /* PlayerViewTests.swift */,
 				B9B12136244C687D00880DA4 /* Info.plist */,
 			);
 			path = RecordingsTests;
@@ -357,6 +364,7 @@
 				170E525A2424AC9300075F9F /* ContentView.swift in Sources */,
 				170E528E2424ACF800075F9F /* Store.swift in Sources */,
 				170E52912424ACF800075F9F /* Item.swift in Sources */,
+				B961E97E244CACE800FBC70C /* PlayerView.swift in Sources */,
 				170E528F2424ACF800075F9F /* Recording.swift in Sources */,
 				170E52902424ACF800075F9F /* Folder.swift in Sources */,
 				170E52962424AD0D00075F9F /* Player.swift in Sources */,
@@ -371,6 +379,7 @@
 			files = (
 				B961E97C244CA66200FBC70C /* RecordingViewTests.swift in Sources */,
 				B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */,
+				B961E981244CAD5900FBC70C /* PlayerViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +396,7 @@
 				B961E971244C738C00FBC70C /* Utilities.swift in Sources */,
 				B961E972244C738C00FBC70C /* Folder.swift in Sources */,
 				B961E973244C738C00FBC70C /* Item.swift in Sources */,
+				B961E97F244CACE800FBC70C /* PlayerView.swift in Sources */,
 				B961E974244C738C00FBC70C /* Recording.swift in Sources */,
 				B961E975244C738C00FBC70C /* Store.swift in Sources */,
 				B961E97A244C85FF00FBC70C /* RecordingView.swift in Sources */,
