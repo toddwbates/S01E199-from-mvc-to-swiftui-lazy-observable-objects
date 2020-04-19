@@ -1,5 +1,5 @@
 //
-//  SceneDelegate.swift
+//  UnitTestSceneDelegate.swift
 //  UnitTestHostApp
 //
 //  Created by Todd Bates on 4/19/20.
@@ -9,7 +9,7 @@
 import UIKit
 import SwiftUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class UnitTestSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
 

@@ -35,8 +35,8 @@
 		B961E979244C857500FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
 		B961E97A244C85FF00FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
 		B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12134244C687D00880DA4 /* FolderListTests.swift */; };
-		B9B12143244C689600880DA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12142244C689600880DA4 /* AppDelegate.swift */; };
-		B9B12145244C689600880DA4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12144244C689600880DA4 /* SceneDelegate.swift */; };
+		B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12142244C689600880DA4 /* UnitTestAppDelegate.swift */; };
+		B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12144244C689600880DA4 /* UnitTestSceneDelegate.swift */; };
 		B9B12147244C689600880DA4 /* UnitTestContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12146244C689600880DA4 /* UnitTestContentView.swift */; };
 		B9B12149244C689700880DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B12148244C689700880DA4 /* Assets.xcassets */; };
 		B9B1214C244C689700880DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B1214B244C689700880DA4 /* Preview Assets.xcassets */; };
@@ -82,8 +82,8 @@
 		B9B12134244C687D00880DA4 /* FolderListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListTests.swift; sourceTree = "<group>"; };
 		B9B12136244C687D00880DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9B12140244C689600880DA4 /* UnitTestHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTestHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9B12142244C689600880DA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B9B12144244C689600880DA4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B9B12142244C689600880DA4 /* UnitTestAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestAppDelegate.swift; sourceTree = "<group>"; };
+		B9B12144244C689600880DA4 /* UnitTestSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestSceneDelegate.swift; sourceTree = "<group>"; };
 		B9B12146244C689600880DA4 /* UnitTestContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestContentView.swift; sourceTree = "<group>"; };
 		B9B12148244C689700880DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9B1214B244C689700880DA4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -188,8 +188,8 @@
 		B9B12141244C689600880DA4 /* UnitTestHostApp */ = {
 			isa = PBXGroup;
 			children = (
-				B9B12142244C689600880DA4 /* AppDelegate.swift */,
-				B9B12144244C689600880DA4 /* SceneDelegate.swift */,
+				B9B12142244C689600880DA4 /* UnitTestAppDelegate.swift */,
+				B9B12144244C689600880DA4 /* UnitTestSceneDelegate.swift */,
 				B9B12146244C689600880DA4 /* UnitTestContentView.swift */,
 				B9B12148244C689700880DA4 /* Assets.xcassets */,
 				B9B1214D244C689700880DA4 /* LaunchScreen.storyboard */,
@@ -374,8 +374,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9B12143244C689600880DA4 /* AppDelegate.swift in Sources */,
-				B9B12145244C689600880DA4 /* SceneDelegate.swift in Sources */,
+				B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */,
+				B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */,
 				B961E977244C73BE00FBC70C /* ContentView.swift in Sources */,
 				B9B12147244C689600880DA4 /* UnitTestContentView.swift in Sources */,
 				B961E96F244C738C00FBC70C /* Player.swift in Sources */,

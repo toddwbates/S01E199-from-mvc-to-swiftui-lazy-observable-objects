@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  UnitTestAppDelegate.swift
 //  UnitTestHostApp
 //
 //  Created by Todd Bates on 4/19/20.
@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class UnitTestAppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
