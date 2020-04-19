@@ -34,6 +34,7 @@
 		B961E977244C73BE00FBC70C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52592424AC9300075F9F /* ContentView.swift */; };
 		B961E979244C857500FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
 		B961E97A244C85FF00FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
+		B961E97C244CA66200FBC70C /* RecordingViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E97B244CA66200FBC70C /* RecordingViewTests.swift */; };
 		B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12134244C687D00880DA4 /* FolderListTests.swift */; };
 		B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12142244C689600880DA4 /* UnitTestAppDelegate.swift */; };
 		B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12144244C689600880DA4 /* UnitTestSceneDelegate.swift */; };
@@ -78,6 +79,7 @@
 		170E52942424AD0D00075F9F /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B961E959244C6DAA00FBC70C /* FolderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderList.swift; sourceTree = "<group>"; };
 		B961E978244C857500FBC70C /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
+		B961E97B244CA66200FBC70C /* RecordingViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewTests.swift; sourceTree = "<group>"; };
 		B9B12132244C687D00880DA4 /* RecordingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecordingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B12134244C687D00880DA4 /* FolderListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListTests.swift; sourceTree = "<group>"; };
 		B9B12136244C687D00880DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				B9B12134244C687D00880DA4 /* FolderListTests.swift */,
+				B961E97B244CA66200FBC70C /* RecordingViewTests.swift */,
 				B9B12136244C687D00880DA4 /* Info.plist */,
 			);
 			path = RecordingsTests;
@@ -366,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B961E97C244CA66200FBC70C /* RecordingViewTests.swift in Sources */,
 				B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -27,28 +27,34 @@ struct RecordingView: View {
     isPresented = false
   }
   
+  func onStop() {
+    self.recorder?.stop()
+    self.isSaving = true
+  }
+  
+  func onStartRecorder() {
+    guard let s = self.folder.store, let url = s.fileURL(for: self.recording) else { return }
+    self.recorder = Recorder(url: url) { time in
+      self.time = time ?? 0
+    }
+  }
+
+  func onStopRecorder() {
+    recorder = nil
+  }
+
   var body: some View {
     VStack(spacing: 20) {
       Text("Recording")
       Text(timeString(time))
         .font(.title)
-      Button("Stop") {
-        self.recorder?.stop()
-        self.isSaving = true
-      }
+      Button("Stop", action: onStop)
       .buttonStyle(PrimaryButtonStyle())
     }
     .padding()
-    .onAppear {
-      guard let s = self.folder.store, let url = s.fileURL(for: self.recording) else { return }
-      self.recorder = Recorder(url: url) { time in
-        self.time = time ?? 0
-      }
-    }
-    .onDisappear {
-      // TODO stop and delete
-    }
-    .textAlert(isPresented: $isSaving, title: "Save Recording", placeholder: "Name", callback: { self.save(name: $0) })
+    .onAppear(perform: onStartRecorder)
+    .onDisappear(perform: onStopRecorder)
+    .textAlert(isPresented: $isSaving, title: "Save Recording", placeholder: "Name", callback: save(name:))
   }
 }
 
