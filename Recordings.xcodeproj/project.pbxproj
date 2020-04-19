@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,10 +20,24 @@
 		170E52952424AD0D00075F9F /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52922424AD0D00075F9F /* Recorder.swift */; };
 		170E52962424AD0D00075F9F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52932424AD0D00075F9F /* Player.swift */; };
 		170E52972424AD0D00075F9F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52942424AD0D00075F9F /* Utilities.swift */; };
-		B9B12135244C687D00880DA4 /* RecordingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12134244C687D00880DA4 /* RecordingsTests.swift */; };
+		B961E95A244C6DAA00FBC70C /* FolderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E959244C6DAA00FBC70C /* FolderList.swift */; };
+		B961E95D244C6EA900FBC70C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = B961E95C244C6EA900FBC70C /* SnapshotTesting */; };
+		B961E95F244C710F00FBC70C /* Recordings.app in Resources */ = {isa = PBXBuildFile; fileRef = 170E52522424AC9300075F9F /* Recordings.app */; };
+		B961E96F244C738C00FBC70C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52932424AD0D00075F9F /* Player.swift */; };
+		B961E970244C738C00FBC70C /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52922424AD0D00075F9F /* Recorder.swift */; };
+		B961E971244C738C00FBC70C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52942424AD0D00075F9F /* Utilities.swift */; };
+		B961E972244C738C00FBC70C /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528C2424ACF800075F9F /* Folder.swift */; };
+		B961E973244C738C00FBC70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528D2424ACF800075F9F /* Item.swift */; };
+		B961E974244C738C00FBC70C /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528B2424ACF800075F9F /* Recording.swift */; };
+		B961E975244C738C00FBC70C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528A2424ACF800075F9F /* Store.swift */; };
+		B961E976244C738C00FBC70C /* FolderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E959244C6DAA00FBC70C /* FolderList.swift */; };
+		B961E977244C73BE00FBC70C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52592424AC9300075F9F /* ContentView.swift */; };
+		B961E979244C857500FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
+		B961E97A244C85FF00FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
+		B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12134244C687D00880DA4 /* FolderListTests.swift */; };
 		B9B12143244C689600880DA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12142244C689600880DA4 /* AppDelegate.swift */; };
 		B9B12145244C689600880DA4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12144244C689600880DA4 /* SceneDelegate.swift */; };
-		B9B12147244C689600880DA4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12146244C689600880DA4 /* ContentView.swift */; };
+		B9B12147244C689600880DA4 /* UnitTestContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12146244C689600880DA4 /* UnitTestContentView.swift */; };
 		B9B12149244C689700880DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B12148244C689700880DA4 /* Assets.xcassets */; };
 		B9B1214C244C689700880DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B1214B244C689700880DA4 /* Preview Assets.xcassets */; };
 		B9B1214F244C689700880DA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9B1214D244C689700880DA4 /* LaunchScreen.storyboard */; };
@@ -62,13 +76,15 @@
 		170E52922424AD0D00075F9F /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		170E52932424AD0D00075F9F /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		170E52942424AD0D00075F9F /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		B961E959244C6DAA00FBC70C /* FolderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderList.swift; sourceTree = "<group>"; };
+		B961E978244C857500FBC70C /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
 		B9B12132244C687D00880DA4 /* RecordingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecordingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9B12134244C687D00880DA4 /* RecordingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTests.swift; sourceTree = "<group>"; };
+		B9B12134244C687D00880DA4 /* FolderListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListTests.swift; sourceTree = "<group>"; };
 		B9B12136244C687D00880DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9B12140244C689600880DA4 /* UnitTestHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTestHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B12142244C689600880DA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9B12144244C689600880DA4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B9B12146244C689600880DA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B9B12146244C689600880DA4 /* UnitTestContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestContentView.swift; sourceTree = "<group>"; };
 		B9B12148244C689700880DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9B1214B244C689700880DA4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B9B1214E244C689700880DA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -87,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B961E95D244C6EA900FBC70C /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +124,7 @@
 				B9B12133244C687D00880DA4 /* RecordingsTests */,
 				B9B12141244C689600880DA4 /* UnitTestHostApp */,
 				170E52532424AC9300075F9F /* Products */,
+				B961E95E244C710F00FBC70C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,6 +151,8 @@
 				170E52552424AC9300075F9F /* AppDelegate.swift */,
 				170E52572424AC9300075F9F /* SceneDelegate.swift */,
 				170E52592424AC9300075F9F /* ContentView.swift */,
+				B961E959244C6DAA00FBC70C /* FolderList.swift */,
+				B961E978244C857500FBC70C /* RecordingView.swift */,
 				170E525B2424AC9400075F9F /* Assets.xcassets */,
 				170E52602424AC9400075F9F /* LaunchScreen.storyboard */,
 				170E52632424AC9400075F9F /* Info.plist */,
@@ -149,10 +169,17 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		B961E95E244C710F00FBC70C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B9B12133244C687D00880DA4 /* RecordingsTests */ = {
 			isa = PBXGroup;
 			children = (
-				B9B12134244C687D00880DA4 /* RecordingsTests.swift */,
+				B9B12134244C687D00880DA4 /* FolderListTests.swift */,
 				B9B12136244C687D00880DA4 /* Info.plist */,
 			);
 			path = RecordingsTests;
@@ -163,7 +190,7 @@
 			children = (
 				B9B12142244C689600880DA4 /* AppDelegate.swift */,
 				B9B12144244C689600880DA4 /* SceneDelegate.swift */,
-				B9B12146244C689600880DA4 /* ContentView.swift */,
+				B9B12146244C689600880DA4 /* UnitTestContentView.swift */,
 				B9B12148244C689700880DA4 /* Assets.xcassets */,
 				B9B1214D244C689700880DA4 /* LaunchScreen.storyboard */,
 				B9B12150244C689800880DA4 /* Info.plist */,
@@ -215,6 +242,9 @@
 				B9B12155244C68A000880DA4 /* PBXTargetDependency */,
 			);
 			name = RecordingsTests;
+			packageProductDependencies = (
+				B961E95C244C6EA900FBC70C /* SnapshotTesting */,
+			);
 			productName = RecordingsTests;
 			productReference = B9B12132244C687D00880DA4 /* RecordingsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -267,6 +297,9 @@
 				Base,
 			);
 			mainGroup = 170E52492424AC9300075F9F;
+			packageReferences = (
+				B961E95B244C6EA900FBC70C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = 170E52532424AC9300075F9F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -301,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9B1214F244C689700880DA4 /* LaunchScreen.storyboard in Resources */,
+				B961E95F244C710F00FBC70C /* Recordings.app in Resources */,
 				B9B1214C244C689700880DA4 /* Preview Assets.xcassets in Resources */,
 				B9B12149244C689700880DA4 /* Assets.xcassets in Resources */,
 			);
@@ -315,6 +349,8 @@
 			files = (
 				170E52562424AC9300075F9F /* AppDelegate.swift in Sources */,
 				170E52582424AC9300075F9F /* SceneDelegate.swift in Sources */,
+				B961E979244C857500FBC70C /* RecordingView.swift in Sources */,
+				B961E95A244C6DAA00FBC70C /* FolderList.swift in Sources */,
 				170E525A2424AC9300075F9F /* ContentView.swift in Sources */,
 				170E528E2424ACF800075F9F /* Store.swift in Sources */,
 				170E52912424ACF800075F9F /* Item.swift in Sources */,
@@ -330,7 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9B12135244C687D00880DA4 /* RecordingsTests.swift in Sources */,
+				B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,7 +376,17 @@
 			files = (
 				B9B12143244C689600880DA4 /* AppDelegate.swift in Sources */,
 				B9B12145244C689600880DA4 /* SceneDelegate.swift in Sources */,
-				B9B12147244C689600880DA4 /* ContentView.swift in Sources */,
+				B961E977244C73BE00FBC70C /* ContentView.swift in Sources */,
+				B9B12147244C689600880DA4 /* UnitTestContentView.swift in Sources */,
+				B961E96F244C738C00FBC70C /* Player.swift in Sources */,
+				B961E970244C738C00FBC70C /* Recorder.swift in Sources */,
+				B961E971244C738C00FBC70C /* Utilities.swift in Sources */,
+				B961E972244C738C00FBC70C /* Folder.swift in Sources */,
+				B961E973244C738C00FBC70C /* Item.swift in Sources */,
+				B961E974244C738C00FBC70C /* Recording.swift in Sources */,
+				B961E975244C738C00FBC70C /* Store.swift in Sources */,
+				B961E97A244C85FF00FBC70C /* RecordingView.swift in Sources */,
+				B961E976244C738C00FBC70C /* FolderList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +703,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B961E95B244C6EA900FBC70C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B961E95C244C6EA900FBC70C /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B961E95B244C6EA900FBC70C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 170E524A2424AC9300075F9F /* Project object */;
 }

@@ -118,50 +118,6 @@ extension Item {
     }
 }
 
-struct FolderList: View {
-    @ObservedObject var folder: Folder
-    @State var presentsNewRecording = false
-    @State var createFolder = false
-    var body: some View {
-        List {
-            ForEach(folder.contents) { item in
-                NavigationLink(destination: item.destination) {
-                    HStack {
-                        Image(systemName: item.symbolName)
-                            .frame(width: 20, alignment: .leading)
-                        Text(item.name)
-                    }
-                }
-            }.onDelete(perform: { indices in
-                let items = indices.map { self.folder.contents[$0] }
-                for item in items {
-                    self.folder.remove(item)
-                }
-            })
-        }
-        .textAlert(isPresented: $createFolder, title: "Create Folder", placeholder: "Name", callback: { name in
-            guard let n = name else { return }
-            self.folder.add(Folder(name: n, uuid: UUID()))
-        })
-        .navigationBarTitle("Recordings")
-        .navigationBarItems(trailing: HStack {
-            Button(action: {
-                self.createFolder = true
-            }, label: {
-                Image(systemName: "folder.badge.plus")
-            })
-            Button(action: {
-                self.presentsNewRecording = true
-            }, label: {
-                Image(systemName: "waveform.path.badge.plus")
-            })
-        })
-        .sheet(isPresented: $presentsNewRecording) {
-            RecordingView(folder: self.folder, isPresented: self.$presentsNewRecording)
-        }
-    }
-}
-
 struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
     let title: String
@@ -196,50 +152,6 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
 extension View {
     func textAlert(isPresented: Binding<Bool>, title: String, placeholder: String = "", callback: @escaping (String?) -> ()) -> some View {
         AlertWrapper(isPresented: isPresented, title: title, placeholder: placeholder, callback: callback, content: self)
-    }
-}
-
-struct RecordingView: View {
-    let folder: Folder
-    @Binding var isPresented: Bool
-    
-    private let recording = Recording(name: "", uuid: UUID())
-    @State private var recorder: Recorder? = nil
-    @State private var time: TimeInterval = 0
-    @State private var isSaving: Bool = false
-    
-    func save(name: String?) {
-        if let n = name {
-            recording.setName(n)
-            folder.add(recording)
-        } else {
-            recording.deleted()
-        }
-        isPresented = false
-    }
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("Recording")
-            Text(timeString(time))
-                .font(.title)
-            Button("Stop") {
-                self.recorder?.stop()
-                self.isSaving = true
-            }
-            .buttonStyle(PrimaryButtonStyle())
-        }
-        .padding()
-        .onAppear {
-            guard let s = self.folder.store, let url = s.fileURL(for: self.recording) else { return }
-            self.recorder = Recorder(url: url) { time in
-                self.time = time ?? 0
-            }
-        }
-        .onDisappear {
-            // TODO stop and delete
-        }
-        .textAlert(isPresented: $isSaving, title: "Save Recording", placeholder: "Name", callback: { self.save(name: $0) })
     }
 }
 
