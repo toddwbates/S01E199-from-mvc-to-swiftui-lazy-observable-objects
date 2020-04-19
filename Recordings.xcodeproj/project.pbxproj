@@ -13,7 +13,7 @@
 		170E525C2424AC9400075F9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 170E525B2424AC9400075F9F /* Assets.xcassets */; };
 		170E525F2424AC9400075F9F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 170E525E2424AC9400075F9F /* Preview Assets.xcassets */; };
 		170E52622424AC9400075F9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 170E52602424AC9400075F9F /* LaunchScreen.storyboard */; };
-		170E528E2424ACF800075F9F /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528A2424ACF800075F9F /* Store.swift */; };
+		170E528E2424ACF800075F9F /* RecordingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528A2424ACF800075F9F /* RecordingStore.swift */; };
 		170E528F2424ACF800075F9F /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528B2424ACF800075F9F /* Recording.swift */; };
 		170E52902424ACF800075F9F /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528C2424ACF800075F9F /* Folder.swift */; };
 		170E52912424ACF800075F9F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528D2424ACF800075F9F /* Item.swift */; };
@@ -29,7 +29,7 @@
 		B961E972244C738C00FBC70C /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528C2424ACF800075F9F /* Folder.swift */; };
 		B961E973244C738C00FBC70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528D2424ACF800075F9F /* Item.swift */; };
 		B961E974244C738C00FBC70C /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528B2424ACF800075F9F /* Recording.swift */; };
-		B961E975244C738C00FBC70C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528A2424ACF800075F9F /* Store.swift */; };
+		B961E975244C738C00FBC70C /* RecordingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E528A2424ACF800075F9F /* RecordingStore.swift */; };
 		B961E976244C738C00FBC70C /* FolderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E959244C6DAA00FBC70C /* FolderList.swift */; };
 		B961E977244C73BE00FBC70C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170E52592424AC9300075F9F /* ContentView.swift */; };
 		B961E979244C857500FBC70C /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E978244C857500FBC70C /* RecordingView.swift */; };
@@ -45,6 +45,12 @@
 		B9B12149244C689700880DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B12148244C689700880DA4 /* Assets.xcassets */; };
 		B9B1214C244C689700880DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B1214B244C689700880DA4 /* Preview Assets.xcassets */; };
 		B9B1214F244C689700880DA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9B1214D244C689700880DA4 /* LaunchScreen.storyboard */; };
+		B9C449B7244CCACC007E0C05 /* CasePaths in Frameworks */ = {isa = PBXBuildFile; productRef = B9C449B6244CCACC007E0C05 /* CasePaths */; };
+		B9C449B9244CCADF007E0C05 /* CasePaths in Frameworks */ = {isa = PBXBuildFile; productRef = B9C449B8244CCADF007E0C05 /* CasePaths */; };
+		B9C449BC244CCF35007E0C05 /* ComposableArchitecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C449BA244CCF35007E0C05 /* ComposableArchitecture.swift */; };
+		B9C449BD244CCF35007E0C05 /* ComposableArchitecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C449BA244CCF35007E0C05 /* ComposableArchitecture.swift */; };
+		B9C449BE244CCF35007E0C05 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C449BB244CCF35007E0C05 /* Effect.swift */; };
+		B9C449BF244CCF35007E0C05 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C449BB244CCF35007E0C05 /* Effect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +79,7 @@
 		170E525E2424AC9400075F9F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		170E52612424AC9400075F9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		170E52632424AC9400075F9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		170E528A2424ACF800075F9F /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		170E528A2424ACF800075F9F /* RecordingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingStore.swift; sourceTree = "<group>"; };
 		170E528B2424ACF800075F9F /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		170E528C2424ACF800075F9F /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		170E528D2424ACF800075F9F /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -96,6 +102,8 @@
 		B9B1214B244C689700880DA4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B9B1214E244C689700880DA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B9B12150244C689800880DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9C449BA244CCF35007E0C05 /* ComposableArchitecture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposableArchitecture.swift; sourceTree = "<group>"; };
+		B9C449BB244CCF35007E0C05 /* Effect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C449B7244CCACC007E0C05 /* CasePaths in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C449B9244CCADF007E0C05 /* CasePaths in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,13 +164,14 @@
 				170E528C2424ACF800075F9F /* Folder.swift */,
 				170E528D2424ACF800075F9F /* Item.swift */,
 				170E528B2424ACF800075F9F /* Recording.swift */,
-				170E528A2424ACF800075F9F /* Store.swift */,
+				170E528A2424ACF800075F9F /* RecordingStore.swift */,
 				170E52552424AC9300075F9F /* AppDelegate.swift */,
 				170E52572424AC9300075F9F /* SceneDelegate.swift */,
 				170E52592424AC9300075F9F /* ContentView.swift */,
 				B961E959244C6DAA00FBC70C /* FolderList.swift */,
 				B961E978244C857500FBC70C /* RecordingView.swift */,
 				B961E97D244CACE800FBC70C /* PlayerView.swift */,
+				B9C449B4244CCA7B007E0C05 /* ComposableArchitecture */,
 				170E525B2424AC9400075F9F /* Assets.xcassets */,
 				170E52602424AC9400075F9F /* LaunchScreen.storyboard */,
 				170E52632424AC9400075F9F /* Info.plist */,
@@ -217,6 +228,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		B9C449B4244CCA7B007E0C05 /* ComposableArchitecture */ = {
+			isa = PBXGroup;
+			children = (
+				B9C449BA244CCF35007E0C05 /* ComposableArchitecture.swift */,
+				B9C449BB244CCF35007E0C05 /* Effect.swift */,
+			);
+			path = ComposableArchitecture;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -233,6 +253,9 @@
 			dependencies = (
 			);
 			name = Recordings;
+			packageProductDependencies = (
+				B9C449B6244CCACC007E0C05 /* CasePaths */,
+			);
 			productName = Recordings;
 			productReference = 170E52522424AC9300075F9F /* Recordings.app */;
 			productType = "com.apple.product-type.application";
@@ -272,6 +295,9 @@
 			dependencies = (
 			);
 			name = UnitTestHostApp;
+			packageProductDependencies = (
+				B9C449B8244CCADF007E0C05 /* CasePaths */,
+			);
 			productName = UnitTestHostApp;
 			productReference = B9B12140244C689600880DA4 /* UnitTestHostApp.app */;
 			productType = "com.apple.product-type.application";
@@ -309,6 +335,7 @@
 			mainGroup = 170E52492424AC9300075F9F;
 			packageReferences = (
 				B961E95B244C6EA900FBC70C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				B9C449B5244CCACC007E0C05 /* XCRemoteSwiftPackageReference "swift-case-paths" */,
 			);
 			productRefGroup = 170E52532424AC9300075F9F /* Products */;
 			projectDirPath = "";
@@ -357,12 +384,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C449BE244CCF35007E0C05 /* Effect.swift in Sources */,
 				170E52562424AC9300075F9F /* AppDelegate.swift in Sources */,
+				B9C449BC244CCF35007E0C05 /* ComposableArchitecture.swift in Sources */,
 				170E52582424AC9300075F9F /* SceneDelegate.swift in Sources */,
 				B961E979244C857500FBC70C /* RecordingView.swift in Sources */,
 				B961E95A244C6DAA00FBC70C /* FolderList.swift in Sources */,
 				170E525A2424AC9300075F9F /* ContentView.swift in Sources */,
-				170E528E2424ACF800075F9F /* Store.swift in Sources */,
+				170E528E2424ACF800075F9F /* RecordingStore.swift in Sources */,
 				170E52912424ACF800075F9F /* Item.swift in Sources */,
 				B961E97E244CACE800FBC70C /* PlayerView.swift in Sources */,
 				170E528F2424ACF800075F9F /* Recording.swift in Sources */,
@@ -387,9 +416,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C449BD244CCF35007E0C05 /* ComposableArchitecture.swift in Sources */,
 				B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */,
 				B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */,
 				B961E977244C73BE00FBC70C /* ContentView.swift in Sources */,
+				B9C449BF244CCF35007E0C05 /* Effect.swift in Sources */,
 				B9B12147244C689600880DA4 /* UnitTestContentView.swift in Sources */,
 				B961E96F244C738C00FBC70C /* Player.swift in Sources */,
 				B961E970244C738C00FBC70C /* Recorder.swift in Sources */,
@@ -398,7 +429,7 @@
 				B961E973244C738C00FBC70C /* Item.swift in Sources */,
 				B961E97F244CACE800FBC70C /* PlayerView.swift in Sources */,
 				B961E974244C738C00FBC70C /* Recording.swift in Sources */,
-				B961E975244C738C00FBC70C /* Store.swift in Sources */,
+				B961E975244C738C00FBC70C /* RecordingStore.swift in Sources */,
 				B961E97A244C85FF00FBC70C /* RecordingView.swift in Sources */,
 				B961E976244C738C00FBC70C /* FolderList.swift in Sources */,
 			);
@@ -727,6 +758,14 @@
 				minimumVersion = 1.7.2;
 			};
 		};
+		B9C449B5244CCACC007E0C05 /* XCRemoteSwiftPackageReference "swift-case-paths" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-case-paths";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -734,6 +773,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B961E95B244C6EA900FBC70C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
+		};
+		B9C449B6244CCACC007E0C05 /* CasePaths */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9C449B5244CCACC007E0C05 /* XCRemoteSwiftPackageReference "swift-case-paths" */;
+			productName = CasePaths;
+		};
+		B9C449B8244CCADF007E0C05 /* CasePaths */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9C449B5244CCACC007E0C05 /* XCRemoteSwiftPackageReference "swift-case-paths" */;
+			productName = CasePaths;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

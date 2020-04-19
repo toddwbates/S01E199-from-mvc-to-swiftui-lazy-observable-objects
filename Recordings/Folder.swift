@@ -2,7 +2,7 @@ import Foundation
 
 class Folder: Item, Codable {
 	private(set) var contents: [Item]
-	override weak var store: Store? {
+	override weak var store: RecordingStore? {
 		didSet {
 			contents.forEach { $0.store = store }
 		}

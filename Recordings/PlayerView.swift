@@ -8,44 +8,69 @@
 
 import SwiftUI
 
+let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, ()> {_,_,_ in
+  return []
+}
+
 struct PlayerView: View {
-    let recording: Recording
-    @State private var name: String = ""
-    @State private var position: TimeInterval = 0
-    @ObservedObject private var player: Lazy<Player>
+  
+  struct State : Equatable{
+    var name: String
     
-    init?(recording: Recording) {
-        self.recording = recording
-        self._name = State(initialValue: recording.name)
-        guard let u = recording.fileURL else { return nil }
-        self.player = Lazy { Player(url: u)! } // todo
+    var duration: TimeInterval
+    var position: TimeInterval = 0
+    
+    public enum PlayState {
+      case atBegining
+      case playing
+      case paused
     }
     
-    var playButtonTitle: String {
-        if player.isPlaying { return "Pause" }
-        else if player.isPaused { return "Resume" }
-        else { return "Play" }
+    var playState : PlayState
+  }
+  
+  enum Action {
+    case setName(String)
+    case setPostion(TimeInterval)
+    case togglePlay
+  }
+  
+  @ObservedObject private var store: ViewStore<State, Action>
+  
+  public init(store: ViewStore<State, Action>) {
+    self.store = store
+  }
+  
+  var playButtonTitle: String {
+    switch store.value.playState {
+    case .atBegining:
+      return "Play"
+    case .playing:
+      return "Pause"
+    case .paused:
+      return "Resume"
     }
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("Name")
-                TextField("Name", text: $name, onEditingChanged: { _ in
-                    self.recording.setName(self.name)
-                })
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            HStack {
-                Text(timeString(0))
-                Spacer()
-                Text(timeString(player.duration))
-            }
-            Slider(value: $player.time, in: 0...player.duration)
-            Button(playButtonTitle) { self.player.value.togglePlay() }
-                .buttonStyle(PrimaryButtonStyle())
-            Spacer()
-        }
-        .padding()
+  }
+  
+  var body: some View {
+    VStack(spacing: 20) {
+      HStack {
+        Text("Name")
+        TextField("Name",
+                  text: Binding(get: { self.store.value.name } , set: { self.store.send(.setName($0)) }))
+          .textFieldStyle(RoundedBorderTextFieldStyle())
+      }
+      HStack {
+        Text(timeString(0))
+        Spacer()
+        Text(timeString(store.value.duration))
+      }
+      Slider(value: Binding(get: { self.store.value.position } , set: { self.store.send(.setPostion($0)) }),
+             in: 0...store.value.duration)
+      Button(playButtonTitle) { self.store.send(.togglePlay) }
+        .buttonStyle(PrimaryButtonStyle())
+      Spacer()
     }
+    .padding()
+  }
 }

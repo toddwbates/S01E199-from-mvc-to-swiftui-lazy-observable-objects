@@ -1,9 +1,9 @@
 import Foundation
 
-final class Store {
+final class RecordingStore {
 	static let changedNotification = Notification.Name("StoreChanged")
 	static private let documentDirectory = try! FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-	static let shared = Store(url: documentDirectory)
+	static let shared = RecordingStore(url: documentDirectory)
 	
 	let baseURL: URL?
 	var placeholder: URL?
@@ -35,7 +35,7 @@ final class Store {
 			try! data.write(to: url.appendingPathComponent(.storeLocation))
 			// error handling ommitted
 		}
-		NotificationCenter.default.post(name: Store.changedNotification, object: notifying, userInfo: userInfo)
+		NotificationCenter.default.post(name: RecordingStore.changedNotification, object: notifying, userInfo: userInfo)
 	}
 	// >> mvc-save
 	

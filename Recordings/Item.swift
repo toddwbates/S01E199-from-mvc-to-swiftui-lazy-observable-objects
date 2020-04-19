@@ -3,7 +3,7 @@ import Foundation
 class Item: Identifiable, ObservableObject {
 	let uuid: UUID
 	private(set) var name: String
-	weak var store: Store?
+	weak var store: RecordingStore?
 	weak var parent: Folder? {
 		didSet {
 			store = parent?.store

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FolderList: View {
   @ObservedObject var folder: Folder
+  let itemBuilder : (Item)-> AnyView
   
   // TODO: how do I make @State testable?
   @State var presentsNewRecording = false
@@ -43,7 +44,7 @@ struct FolderList: View {
   var body: some View {
     List {
       ForEach(folder.contents) { item in
-        NavigationLink(destination: item.destination) {
+        NavigationLink(destination: self.itemBuilder(item)) {
           HStack {
             Image(systemName: item.symbolName)
               .frame(width: 20, alignment: .leading)
