@@ -13,9 +13,6 @@ import SnapshotTesting
 
 class PlayerViewTests: XCTestCase {
   
-  // TODO: this is definitly not what to do for a test,
-  // cant instantiate PlayerView because it requires that
-  // Store be well configured
   func testStartSnapshot()  {
     let store = Store(
       initialValue: PlayerView.State(name: "Peter", duration: 100, position: 50, playState: .start),
@@ -48,4 +45,5 @@ class PlayerViewTests: XCTestCase {
 
     assertSnapshot(matching: vc, as: .image)
   }
+  
 }
