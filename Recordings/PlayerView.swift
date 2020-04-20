@@ -10,19 +10,32 @@ import SwiftUI
 import CasePaths
 import Combine
 
-enum PlayerEnvAction {
+enum PlayerEnvAction : Equatable {
   case load
   case position(TimeInterval)
   case toggle
 }
 
-enum PlayerEnvResult {
+enum PlayerEnvResult : Equatable{
   case length(TimeInterval)
   case playing(position: TimeInterval)
   case stopped(position: TimeInterval)
 }
 
 typealias PlayerEnv = (PlayerEnvAction)->Effect<PlayerView.Action>
+
+fileprivate func effectReducer (_ state:inout PlayerView.State,_ action: PlayerEnvResult){
+  switch action {
+  case let .length(length):
+    state.duration = length
+  case let .playing(position: position):
+    state.position = position
+    state.buttonState = .pause
+  case let .stopped(position: position):
+    state.position = position
+    state.buttonState = (position == 0) ? .start : .resume
+  }
+}
 
 let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, PlayerEnv> { state, action, env in
   switch action {
@@ -31,20 +44,11 @@ let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, PlayerEnv> 
   case let .setName(name):
     state.name = name
   case let .setPostion(position):
-    state.position = position
+    return [env(.position(position))]
   case .togglePlay:
     return [env(.toggle)]
   case let .effectResult(effectResult):
-    switch effectResult {
-    case let .length(length):
-      state.duration = length
-    case let .playing(position: position):
-      state.position = position
-      state.buttonState = .pause
-    case let .stopped(position: position):
-      state.position = position
-      state.buttonState = (position == 0) ? .start : .resume
-    }
+    effectReducer(&state, effectResult)
   }
   return []
 }
@@ -68,7 +72,7 @@ struct PlayerView: View {
     var buttonState : PlayButtonState
   }
   
-  enum Action {
+  enum Action : Equatable {
     case load
     case setName(String)
     case setPostion(TimeInterval)

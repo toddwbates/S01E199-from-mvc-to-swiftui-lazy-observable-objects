@@ -12,7 +12,7 @@ import SnapshotTesting
 @testable import UnitTestHostApp
 
 class PlayerViewTests: XCTestCase {
-  var playing  = true
+  var playing  = false
   var position : TimeInterval = 0
   
   func env() -> PlayerEnv {
@@ -25,11 +25,22 @@ class PlayerViewTests: XCTestCase {
       case let .position(newPostion):
         return Effect.sync {
           self.position = newPostion
-          return .effectResult(.playing(position: self.position))
+          if self.playing {
+            return .effectResult(.playing(position: self.position))
+          }
+          else {
+            return .effectResult(.stopped(position: self.position))
+          }
         }
       case .toggle:
         return Effect.sync {
-          return .effectResult(.stopped(position: self.position))
+          self.playing = !self.playing
+          if self.playing {
+            return .effectResult(.playing(position: self.position))
+          }
+          else {
+            return .effectResult(.stopped(position: self.position))
+          }
         }
       }
     }
@@ -37,7 +48,7 @@ class PlayerViewTests: XCTestCase {
   
   func testStartSnapshot()  {
     let store = Store(
-      initialValue: PlayerView.State(name: "Peter", duration: 100, position: 50, buttonState: .start),
+      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 50, buttonState: .start),
       reducer: playerViewReducer, environment: env())
     
     let view = PlayerView(store: store.view)
@@ -48,7 +59,7 @@ class PlayerViewTests: XCTestCase {
   
   func testPauseSnapshot()  {
     let store = Store(
-      initialValue: PlayerView.State(name: "Peter", duration: 100, position: 0, buttonState: .pause),
+      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 0, buttonState: .pause),
       reducer: playerViewReducer, environment: env())
     
     let view = PlayerView(store: store.view)
@@ -59,7 +70,7 @@ class PlayerViewTests: XCTestCase {
   
   func testResumeSnapshot()  {
     let store = Store(
-      initialValue: PlayerView.State(name: "Peter", duration: 100, position: 0, buttonState: .resume),
+      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 0, buttonState: .resume),
       reducer: playerViewReducer, environment: env())
     
     let view = PlayerView(store: store.view)
@@ -68,4 +79,39 @@ class PlayerViewTests: XCTestCase {
     assertSnapshot(matching: vc, as: .image)
   }
   
+  func testReducer() {
+    assert(
+      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 50, buttonState: .resume),
+      reducer: playerViewReducer,
+      environment: env(),
+      steps:
+      Step(.send, .load) { _ in },
+      Step(.receive, .effectResult(.length(100))) { $0.duration = 100 },
+      Step(.send, .setName("New Name")) { $0.name = "New Name" },
+      Step(.send, .togglePlay) { _ in },
+      Step(.receive, .effectResult(.playing(position: 0))) {
+        $0.buttonState = .pause
+        $0.position = 0
+      },
+      Step(.send, .togglePlay) { _ in self.position = 20},
+      Step(.receive, .effectResult(.stopped(position: 20))) {
+        $0.buttonState = .resume
+        $0.position = 20
+      },
+      Step(.send, .togglePlay) { _ in },
+      Step(.receive, .effectResult(.playing(position: 20))) {
+        $0.buttonState = .pause
+      },
+      Step(.send, .togglePlay) { _ in self.position = 0 },
+      Step(.receive, .effectResult(.stopped(position: 0))) {
+        $0.buttonState = .start
+        $0.position = 0
+      },
+      Step(.send, .setPostion(50)) { _ in  },
+      Step(.receive, .effectResult(.stopped(position: 50))) {
+        $0.buttonState = .resume
+        $0.position = 50
+      }
+    )
+  }
 }

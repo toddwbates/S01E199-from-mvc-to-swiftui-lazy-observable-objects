@@ -40,6 +40,7 @@
 		B961E981244CAD5900FBC70C /* PlayerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E980244CAD5900FBC70C /* PlayerViewTests.swift */; };
 		B9A253DE244DE15A005A450D /* PlayerViewEnvWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A253DD244DE15A005A450D /* PlayerViewEnvWrapper.swift */; };
 		B9A253DF244DE1E2005A450D /* PlayerViewEnvWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A253DD244DE15A005A450D /* PlayerViewEnvWrapper.swift */; };
+		B9A253E1244E0164005A450D /* ComposableArchitectureTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A253E0244E0164005A450D /* ComposableArchitectureTestSupport.swift */; };
 		B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12134244C687D00880DA4 /* FolderListTests.swift */; };
 		B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12142244C689600880DA4 /* UnitTestAppDelegate.swift */; };
 		B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12144244C689600880DA4 /* UnitTestSceneDelegate.swift */; };
@@ -94,6 +95,7 @@
 		B961E97D244CACE800FBC70C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		B961E980244CAD5900FBC70C /* PlayerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewTests.swift; sourceTree = "<group>"; };
 		B9A253DD244DE15A005A450D /* PlayerViewEnvWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewEnvWrapper.swift; sourceTree = "<group>"; };
+		B9A253E0244E0164005A450D /* ComposableArchitectureTestSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposableArchitectureTestSupport.swift; sourceTree = "<group>"; };
 		B9B12132244C687D00880DA4 /* RecordingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecordingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B12134244C687D00880DA4 /* FolderListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListTests.swift; sourceTree = "<group>"; };
 		B9B12136244C687D00880DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				B9B12134244C687D00880DA4 /* FolderListTests.swift */,
 				B961E97B244CA66200FBC70C /* RecordingViewTests.swift */,
 				B961E980244CAD5900FBC70C /* PlayerViewTests.swift */,
+				B9A253E0244E0164005A450D /* ComposableArchitectureTestSupport.swift */,
 				B9B12136244C687D00880DA4 /* Info.plist */,
 			);
 			path = RecordingsTests;
@@ -414,6 +417,7 @@
 				B961E97C244CA66200FBC70C /* RecordingViewTests.swift in Sources */,
 				B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */,
 				B961E981244CAD5900FBC70C /* PlayerViewTests.swift in Sources */,
+				B9A253E1244E0164005A450D /* ComposableArchitectureTestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
