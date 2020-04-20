@@ -128,13 +128,14 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct ContentView: View {
   let store = RecordingStore.shared
   static var stores = [UUID:Store<PlayerView.State, PlayerView.Action>]()
+  let playEnv = PlayerViewEnvWrapper()
   
   func playerStore(for recording:Recording) -> ViewStore<PlayerView.State, PlayerView.Action> {
     if let store = ContentView.stores[recording.uuid] {
       return store.view
     }
-    let state = PlayerView.State(name: recording.name, duration: 100, playState: .start)
-    let store = Store(initialValue: state, reducer: playerViewReducer.logging(), environment: ())
+    let state = PlayerView.State(name: recording.name, duration: 100, buttonState: .start)
+    let store = Store(initialValue: state, reducer: playerViewReducer.logging(), environment: playEnv.env)
     ContentView.stores[recording.uuid] = store
     return store.view
   }

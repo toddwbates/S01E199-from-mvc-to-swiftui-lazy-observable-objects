@@ -38,6 +38,8 @@
 		B961E97E244CACE800FBC70C /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E97D244CACE800FBC70C /* PlayerView.swift */; };
 		B961E97F244CACE800FBC70C /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E97D244CACE800FBC70C /* PlayerView.swift */; };
 		B961E981244CAD5900FBC70C /* PlayerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B961E980244CAD5900FBC70C /* PlayerViewTests.swift */; };
+		B9A253DE244DE15A005A450D /* PlayerViewEnvWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A253DD244DE15A005A450D /* PlayerViewEnvWrapper.swift */; };
+		B9A253DF244DE1E2005A450D /* PlayerViewEnvWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A253DD244DE15A005A450D /* PlayerViewEnvWrapper.swift */; };
 		B9B12135244C687D00880DA4 /* FolderListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12134244C687D00880DA4 /* FolderListTests.swift */; };
 		B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12142244C689600880DA4 /* UnitTestAppDelegate.swift */; };
 		B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B12144244C689600880DA4 /* UnitTestSceneDelegate.swift */; };
@@ -91,6 +93,7 @@
 		B961E97B244CA66200FBC70C /* RecordingViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewTests.swift; sourceTree = "<group>"; };
 		B961E97D244CACE800FBC70C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		B961E980244CAD5900FBC70C /* PlayerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewTests.swift; sourceTree = "<group>"; };
+		B9A253DD244DE15A005A450D /* PlayerViewEnvWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewEnvWrapper.swift; sourceTree = "<group>"; };
 		B9B12132244C687D00880DA4 /* RecordingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecordingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B12134244C687D00880DA4 /* FolderListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderListTests.swift; sourceTree = "<group>"; };
 		B9B12136244C687D00880DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,6 +174,7 @@
 				B961E959244C6DAA00FBC70C /* FolderList.swift */,
 				B961E978244C857500FBC70C /* RecordingView.swift */,
 				B961E97D244CACE800FBC70C /* PlayerView.swift */,
+				B9A253DD244DE15A005A450D /* PlayerViewEnvWrapper.swift */,
 				B9C449B4244CCA7B007E0C05 /* ComposableArchitecture */,
 				170E525B2424AC9400075F9F /* Assets.xcassets */,
 				170E52602424AC9400075F9F /* LaunchScreen.storyboard */,
@@ -391,6 +395,7 @@
 				B961E979244C857500FBC70C /* RecordingView.swift in Sources */,
 				B961E95A244C6DAA00FBC70C /* FolderList.swift in Sources */,
 				170E525A2424AC9300075F9F /* ContentView.swift in Sources */,
+				B9A253DE244DE15A005A450D /* PlayerViewEnvWrapper.swift in Sources */,
 				170E528E2424ACF800075F9F /* RecordingStore.swift in Sources */,
 				170E52912424ACF800075F9F /* Item.swift in Sources */,
 				B961E97E244CACE800FBC70C /* PlayerView.swift in Sources */,
@@ -419,6 +424,7 @@
 				B9C449BD244CCF35007E0C05 /* ComposableArchitecture.swift in Sources */,
 				B9B12143244C689600880DA4 /* UnitTestAppDelegate.swift in Sources */,
 				B9B12145244C689600880DA4 /* UnitTestSceneDelegate.swift in Sources */,
+				B9A253DF244DE1E2005A450D /* PlayerViewEnvWrapper.swift in Sources */,
 				B961E977244C73BE00FBC70C /* ContentView.swift in Sources */,
 				B9C449BF244CCF35007E0C05 /* Effect.swift in Sources */,
 				B9B12147244C689600880DA4 /* UnitTestContentView.swift in Sources */,
