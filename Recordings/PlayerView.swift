@@ -81,6 +81,7 @@ struct PlayerView: View {
   }
   
   @ObservedObject private var store: ViewStore<State, Action>
+  var value : State { store.value }
   
   public init(store: ViewStore<State, Action>) {
     self.store = store
@@ -91,21 +92,21 @@ struct PlayerView: View {
       HStack {
         Text("Name")
         TextField("Name",
-                  text: self.store.bind(\State.name , /Action.setName))
+                  text: store.bind(\State.name , /Action.setName))
           .textFieldStyle(RoundedBorderTextFieldStyle())
       }
       HStack {
         Text(timeString(0))
         Spacer()
-        Text(timeString(store.value.duration))
+        Text(timeString(value.duration))
       }
-      Slider(value: self.store.bind(\State.position , /Action.setPostion),
-             in: 0...store.value.duration)
-      Button(self.store.value.buttonState.title, action: self.store.curry(.togglePlay))
+      Slider(value: store.bind(\State.position , /Action.setPostion),
+             in: 0...value.duration)
+      Button( value.buttonState.title, action: store.curry(.togglePlay))
         .buttonStyle(PrimaryButtonStyle())
       Spacer()
     }
     .padding()
-    .onAppear( perform: self.store.curry(.load) )
+    .onAppear( perform: store.curry(.load) )
   }
 }
