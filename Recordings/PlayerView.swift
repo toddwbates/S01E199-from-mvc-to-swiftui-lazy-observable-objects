@@ -12,26 +12,27 @@ import Combine
 
 enum PlayerEnvAction : Equatable {
   case load
+  case unload
   case position(TimeInterval)
   case toggle
 }
 
 enum PlayerEnvResult : Equatable{
-  case length(TimeInterval)
-  case playing(position: TimeInterval)
-  case stopped(position: TimeInterval)
+  case duration(TimeInterval)
+  case playing(time: TimeInterval)
+  case stopped(time: TimeInterval)
 }
 
 typealias PlayerEnv = (PlayerEnvAction)->Effect<PlayerView.Action>
 
 fileprivate func effectReducer (_ state:inout PlayerView.State,_ action: PlayerEnvResult){
   switch action {
-  case let .length(length):
+  case let .duration(length):
     state.duration = length
-  case let .playing(position: position):
+  case let .playing(time: position):
     state.position = position
     state.buttonState = .pause
-  case let .stopped(position: position):
+  case let .stopped(time: position):
     state.position = position
     state.buttonState = (position == 0) ? .start : .resume
   }
@@ -40,7 +41,10 @@ fileprivate func effectReducer (_ state:inout PlayerView.State,_ action: PlayerE
 let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, PlayerEnv> { state, action, env in
   switch action {
   case .load:
-    return [env(.load)]
+    return [env(.load)
+    ,env(.position(state.position))]
+  case .unload:
+    _ = env(.unload)
   case let .setName(name):
     state.name = name
   case let .setPostion(position):
@@ -74,6 +78,7 @@ struct PlayerView: View {
   
   enum Action : Equatable {
     case load
+    case unload
     case setName(String)
     case setPostion(TimeInterval)
     case togglePlay
@@ -108,5 +113,6 @@ struct PlayerView: View {
     }
     .padding()
     .onAppear( perform: store.curry(.load) )
+    .onDisappear( perform: store.curry(.unload) )
   }
 }

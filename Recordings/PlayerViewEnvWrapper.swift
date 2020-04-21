@@ -20,27 +20,38 @@ extension Publisher {
   }
 }
 
-class PlayerViewEnvWrapper {
-  var cancellable : Cancellable?
+protocol PlayerType : ObservableObject {
+  var duration: TimeInterval { get }
+  var time: TimeInterval { get set }
   
-  init() {
+  var isPlaying: Bool { get }
+  
+  func togglePlay()->()
+}
+
+class PlayerViewEnvWrapper<T : PlayerType>  {
+  var cancellable : Cancellable?
+  var player : T! = nil
+  let factory : ()->T?
+  
+  init(_ factory: @escaping ()->T?) {
+    self.factory = factory
   }
   
-  fileprivate func start(_ position: TimeInterval = 0) -> Effect<PlayerView.Action> {
-    let start = Date()
-    self.cancellable?.cancel()
-    return Timer.TimerPublisher(interval: 0.1, runLoop: .main, mode: .default)
-      .autoconnect()
-      .map { .effectResult(.playing(position: $0.timeIntervalSince(start) + position)) }
-      .cancellable { self.cancellable = $0 }
+  fileprivate func load()->Effect<PlayerView.Action> {
+    player = factory()
+    return self.player.objectWillChange
+      .cancellable( { self.cancellable = $0} )
+      .map { _ in .effectResult(self.time) }
+      .prepend(Just(.effectResult(.duration(self.player.duration))))
       .eraseToEffect()
   }
   
-  fileprivate func stop() -> Effect<PlayerView.Action> {
-    return Effect.sync {
-      self.cancellable?.cancel()
-      self.cancellable = nil
-      return .effectResult(.stopped(position: 0))
+  fileprivate var time : PlayerEnvResult {
+    if player.isPlaying {
+      return .playing(time: player.time)
+    } else {
+      return .stopped(time: player.time)
     }
   }
   
@@ -48,20 +59,29 @@ class PlayerViewEnvWrapper {
     return { [unowned self] action in
       switch action {
       case .toggle:
-        if self.cancellable == nil {
-          return self.start()
-        } else {
-          return self.stop()
+        self.player.togglePlay()
+        return Effect.sync {
+          .effectResult(self.time)
         }
       case .load:
-        return Effect.sync {
-          return .effectResult(.length( 120 ))
-        }
-      case let .position(position):
+        return self.load()
+      case .unload:
+        let time = PlayerEnvResult.stopped(time: self.player.time)
         self.cancellable?.cancel()
-        self.cancellable = nil
-        return self.start(position)
+        self.player = nil
+        return Effect.sync {
+          .effectResult(time)
+        }
+      case let .position(time):
+        self.player.time = time
+        return Effect.sync {
+          .effectResult(self.time)
+        }
       }
     }
   }
 }
+
+extension Player : PlayerType {
+}
+

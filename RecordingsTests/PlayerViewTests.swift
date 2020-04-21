@@ -20,28 +20,30 @@ class PlayerViewTests: XCTestCase {
       switch $0 {
       case .load:
         return Effect.sync {
-          return .effectResult(.length( 100 ))
+          return .effectResult(.duration( 100 ))
         }
       case let .position(newPostion):
         return Effect.sync {
           self.position = newPostion
           if self.playing {
-            return .effectResult(.playing(position: self.position))
+            return .effectResult(.playing(time: self.position))
           }
           else {
-            return .effectResult(.stopped(position: self.position))
+            return .effectResult(.stopped(time: self.position))
           }
         }
       case .toggle:
         return Effect.sync {
           self.playing = !self.playing
           if self.playing {
-            return .effectResult(.playing(position: self.position))
+            return .effectResult(.playing(time: self.position))
           }
           else {
-            return .effectResult(.stopped(position: self.position))
+            return .effectResult(.stopped(time: self.position))
           }
         }
+      case .unload:
+        return Effect.fireAndForget { }
       }
     }
   }
@@ -54,7 +56,7 @@ class PlayerViewTests: XCTestCase {
     let view = PlayerView(store: store.view)
     let vc = UIHostingController(rootView: view)
     
-    assertSnapshot(matching: vc, as: .image)
+    assertSnapshot(matching: vc, as: .image(on: .iPhone8))
   }
   
   func testPauseSnapshot()  {
@@ -65,7 +67,7 @@ class PlayerViewTests: XCTestCase {
     let view = PlayerView(store: store.view)
     let vc = UIHostingController(rootView: view)
     
-    assertSnapshot(matching: vc, as: .image)
+    assertSnapshot(matching: vc, as: .image(on: .iPhone8))
   }
   
   func testResumeSnapshot()  {
@@ -76,7 +78,7 @@ class PlayerViewTests: XCTestCase {
     let view = PlayerView(store: store.view)
     let vc = UIHostingController(rootView: view)
     
-    assertSnapshot(matching: vc, as: .image)
+    assertSnapshot(matching: vc, as: .image(on: .iPhone8))
   }
   
   func testReducer() {
@@ -86,32 +88,33 @@ class PlayerViewTests: XCTestCase {
       environment: env(),
       steps:
       Step(.send, .load) { _ in },
-      Step(.receive, .effectResult(.length(100))) { $0.duration = 100 },
+      Step(.receive, .effectResult(.duration(100))) { $0.duration = 100 },
+      Step(.receive, .effectResult(.stopped(time: 50))) { _ in },
       Step(.send, .setName("New Name")) { $0.name = "New Name" },
       Step(.send, .togglePlay) { _ in },
-      Step(.receive, .effectResult(.playing(position: 0))) {
+      Step(.receive, .effectResult(.playing(time: 50))) {
         $0.buttonState = .pause
-        $0.position = 0
       },
       Step(.send, .togglePlay) { _ in self.position = 20},
-      Step(.receive, .effectResult(.stopped(position: 20))) {
+      Step(.receive, .effectResult(.stopped(time: 20))) {
         $0.buttonState = .resume
         $0.position = 20
       },
       Step(.send, .togglePlay) { _ in },
-      Step(.receive, .effectResult(.playing(position: 20))) {
+      Step(.receive, .effectResult(.playing(time: 20))) {
         $0.buttonState = .pause
       },
       Step(.send, .togglePlay) { _ in self.position = 0 },
-      Step(.receive, .effectResult(.stopped(position: 0))) {
+      Step(.receive, .effectResult(.stopped(time: 0))) {
         $0.buttonState = .start
         $0.position = 0
       },
       Step(.send, .setPostion(50)) { _ in  },
-      Step(.receive, .effectResult(.stopped(position: 50))) {
+      Step(.receive, .effectResult(.stopped(time: 50))) {
         $0.buttonState = .resume
         $0.position = 50
-      }
+      },
+      Step(.send, .unload) { _ in  }
     )
   }
 }
