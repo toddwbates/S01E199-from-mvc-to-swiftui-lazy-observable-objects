@@ -48,11 +48,7 @@ class PlayerViewEnvWrapper<T : PlayerType>  {
   }
   
   fileprivate var time : PlayerEnvResult {
-    if player.isPlaying {
-      return .playing(time: player.time)
-    } else {
-      return .stopped(time: player.time)
-    }
+    return .position(player.time)
   }
   
   var env : PlayerEnv {
@@ -66,16 +62,15 @@ class PlayerViewEnvWrapper<T : PlayerType>  {
       case .load:
         return self.load()
       case .unload:
-        let time = PlayerEnvResult.stopped(time: self.player.time)
         self.cancellable?.cancel()
         self.player = nil
         return Effect.sync {
-          .effectResult(time)
+          .effectResult(.isPlaying(false))
         }
       case let .position(time):
         self.player.time = time
         return Effect.sync {
-          .effectResult(self.time)
+          .effectResult(.position(time))
         }
       }
     }

@@ -19,8 +19,8 @@ enum PlayerEnvAction : Equatable {
 
 enum PlayerEnvResult : Equatable{
   case duration(TimeInterval)
-  case playing(time: TimeInterval)
-  case stopped(time: TimeInterval)
+  case isPlaying(Bool)
+  case position(TimeInterval)
 }
 
 typealias PlayerEnv = (PlayerEnvAction)->Effect<PlayerView.Action>
@@ -29,12 +29,10 @@ fileprivate func effectReducer (_ state:inout PlayerView.State,_ action: PlayerE
   switch action {
   case let .duration(length):
     state.duration = length
-  case let .playing(time: position):
-    state.position = position
-    state.buttonState = .pause
-  case let .stopped(time: position):
-    state.position = position
-    state.buttonState = (position == 0) ? .start : .resume
+  case let .isPlaying(isPlaying):
+    state.isPlaying = isPlaying
+  case let .position(time):
+    state.position = time
   }
 }
 
@@ -64,16 +62,17 @@ struct PlayerView: View {
     
     var duration: TimeInterval
     var position: TimeInterval = 0
+    var isPlaying : Bool = false
     
-    public enum PlayButtonState : String {
-      case start = "Play"
-      case pause  = "Pause"
-      case resume  = "Resume"
-      
-      var title: String { self.rawValue }
+    var buttonState : String {
+      if isPlaying {
+        return "Pause"
+      } else if position > 0 {
+        return "Resume"
+      } else {
+        return "Play"
+      }
     }
-    
-    var buttonState : PlayButtonState
   }
   
   enum Action : Equatable {
@@ -101,13 +100,13 @@ struct PlayerView: View {
           .textFieldStyle(RoundedBorderTextFieldStyle())
       }
       HStack {
-        Text(timeString(0))
+        Text(timeString(value.position))
         Spacer()
         Text(timeString(value.duration))
       }
       Slider(value: store.bind(\State.position , /Action.setPostion),
              in: 0...value.duration)
-      Button( value.buttonState.title, action: store.curry(.togglePlay))
+      Button( value.buttonState, action: store.curry(.togglePlay))
         .buttonStyle(PrimaryButtonStyle())
       Spacer()
     }

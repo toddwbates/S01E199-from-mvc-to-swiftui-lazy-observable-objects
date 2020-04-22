@@ -12,8 +12,7 @@ import SnapshotTesting
 @testable import UnitTestHostApp
 
 class PlayerViewTests: XCTestCase {
-  var playing  = false
-  var position : TimeInterval = 0
+  var state = PlayerView.State(name: "Peter", duration: 0)
   
   func env() -> PlayerEnv {
     return {
@@ -24,23 +23,13 @@ class PlayerViewTests: XCTestCase {
         }
       case let .position(newPostion):
         return Effect.sync {
-          self.position = newPostion
-          if self.playing {
-            return .effectResult(.playing(time: self.position))
-          }
-          else {
-            return .effectResult(.stopped(time: self.position))
-          }
+          self.state.position = newPostion
+          return .effectResult(.position(newPostion))
         }
       case .toggle:
         return Effect.sync {
-          self.playing = !self.playing
-          if self.playing {
-            return .effectResult(.playing(time: self.position))
-          }
-          else {
-            return .effectResult(.stopped(time: self.position))
-          }
+          self.state.isPlaying = !self.state.isPlaying
+          return .effectResult(.isPlaying(self.state.isPlaying))
         }
       case .unload:
         return Effect.fireAndForget { }
@@ -48,9 +37,9 @@ class PlayerViewTests: XCTestCase {
     }
   }
   
-  func testStartSnapshot()  {
+  func testPlaySnapshot()  {
     let store = Store(
-      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 50, buttonState: .start),
+      initialValue: state,
       reducer: playerViewReducer, environment: env())
     
     let view = PlayerView(store: store.view)
@@ -61,10 +50,11 @@ class PlayerViewTests: XCTestCase {
   
   func testPauseSnapshot()  {
     let store = Store(
-      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 0, buttonState: .pause),
+      initialValue: state,
       reducer: playerViewReducer, environment: env())
-    
     let view = PlayerView(store: store.view)
+    store.view.send(.togglePlay)
+
     let vc = UIHostingController(rootView: view)
     
     assertSnapshot(matching: vc, as: .image(on: .iPhone8))
@@ -72,10 +62,11 @@ class PlayerViewTests: XCTestCase {
   
   func testResumeSnapshot()  {
     let store = Store(
-      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 0, buttonState: .resume),
+      initialValue: state,
       reducer: playerViewReducer, environment: env())
-    
     let view = PlayerView(store: store.view)
+    store.view.send(.setPostion(50))
+
     let vc = UIHostingController(rootView: view)
     
     assertSnapshot(matching: vc, as: .image(on: .iPhone8))
@@ -83,35 +74,24 @@ class PlayerViewTests: XCTestCase {
   
   func testReducer() {
     assert(
-      initialValue: PlayerView.State(name: "Peter", duration: 0, position: 50, buttonState: .resume),
+      initialValue: PlayerView.State(name: "Peter", duration: 0),
       reducer: playerViewReducer,
       environment: env(),
       steps:
       Step(.send, .load) { _ in },
       Step(.receive, .effectResult(.duration(100))) { $0.duration = 100 },
-      Step(.receive, .effectResult(.stopped(time: 50))) { _ in },
+      Step(.receive, .effectResult(.position(0))) { _ in  },
       Step(.send, .setName("New Name")) { $0.name = "New Name" },
       Step(.send, .togglePlay) { _ in },
-      Step(.receive, .effectResult(.playing(time: 50))) {
-        $0.buttonState = .pause
+      Step(.receive, .effectResult(.isPlaying(true))) {
+        $0.isPlaying = true
       },
-      Step(.send, .togglePlay) { _ in self.position = 20},
-      Step(.receive, .effectResult(.stopped(time: 20))) {
-        $0.buttonState = .resume
-        $0.position = 20
-      },
-      Step(.send, .togglePlay) { _ in },
-      Step(.receive, .effectResult(.playing(time: 20))) {
-        $0.buttonState = .pause
-      },
-      Step(.send, .togglePlay) { _ in self.position = 0 },
-      Step(.receive, .effectResult(.stopped(time: 0))) {
-        $0.buttonState = .start
-        $0.position = 0
+      Step(.send, .togglePlay) { _ in self.state.position = 20},
+      Step(.receive, .effectResult(.isPlaying(false))) {
+        $0.isPlaying = false
       },
       Step(.send, .setPostion(50)) { _ in  },
-      Step(.receive, .effectResult(.stopped(time: 50))) {
-        $0.buttonState = .resume
+      Step(.receive, .effectResult(.position(50))) {
         $0.position = 50
       },
       Step(.send, .unload) { _ in  }

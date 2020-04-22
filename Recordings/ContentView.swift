@@ -139,7 +139,7 @@ struct ContentView: View {
       guard let url = recording.fileURL else { return nil }
       return Player(url: url)
     })
-    let state = PlayerView.State(name: recording.name, duration: 100, buttonState: .start)
+    let state = PlayerView.State(name: recording.name, duration: 100, isPlaying: false)
     let store = Store(initialValue: state, reducer: playerViewReducer.logging(), environment: playEnv.env)
     ContentView.stores[recording.uuid] = (store, playEnv)
     return store.view
