@@ -11,48 +11,49 @@ import CasePaths
 import Combine
 
 enum PlayerEnvAction : Equatable {
+  typealias Transform = (PlayerEnvAction) -> [Effect<PlayerView.Action>]
+  
   case load
   case unload
   case position(TimeInterval)
   case toggle
-}
-
-enum PlayerEnvResult : Equatable{
-  case duration(TimeInterval)
-  case isPlaying(Bool)
-  case position(TimeInterval)
-}
-
-typealias PlayerEnv = (PlayerEnvAction)->Effect<PlayerView.Action>
-
-fileprivate func effectReducer (_ state:inout PlayerView.State,_ action: PlayerEnvResult){
-  switch action {
-  case let .duration(length):
-    state.duration = length
-  case let .isPlaying(isPlaying):
-    state.isPlaying = isPlaying
-  case let .position(time):
-    state.position = time
+  
+  enum Action : Equatable{
+    case duration(TimeInterval)
+    case isPlaying(Bool)
+    case position(TimeInterval)
   }
+  
+  static func reducer(_ state:inout PlayerView.State,_ action:Action) {
+    switch action {
+    case let .duration(length):
+      state.duration = length
+    case let .isPlaying(isPlaying):
+      state.isPlaying = isPlaying
+    case let .position(time):
+      state.position = time
+    }
+  }
+  
 }
 
-let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, PlayerEnv> { state, action, env in
-  switch action {
-  case .load:
-    return [env(.load)
-    ,env(.position(state.position))]
-  case .unload:
-    _ = env(.unload)
-  case let .setName(name):
-    state.name = name
-  case let .setPostion(position):
-    return [env(.position(position))]
-  case .togglePlay:
-    return [env(.toggle)]
-  case let .effectResult(effectResult):
-    effectReducer(&state, effectResult)
-  }
-  return []
+typealias PlayerViewEnv = (load: ()->TimeInterval, togglePlay: ()->Bool, position: (TimeInterval)->(),unload: ()->())
+let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, PlayerViewEnv> { state, action, env in
+    switch action {
+    case .load:
+      state.duration = env.load()
+    case .unload:
+      env.unload()
+    case let .setName(name):
+      state.name = name
+    case let .setPostion(position):
+      state.position = position
+      env.position(position)
+    case .togglePlay:
+      state.isPlaying = env.togglePlay()
+    }
+    
+    return []
 }
 
 struct PlayerView: View {
@@ -69,9 +70,9 @@ struct PlayerView: View {
         return "Pause"
       } else if position > 0 {
         return "Resume"
-      } else {
-        return "Play"
       }
+      
+      return "Play"
     }
   }
   
@@ -81,7 +82,6 @@ struct PlayerView: View {
     case setName(String)
     case setPostion(TimeInterval)
     case togglePlay
-    case effectResult(PlayerEnvResult)
   }
   
   @ObservedObject private var store: ViewStore<State, Action>

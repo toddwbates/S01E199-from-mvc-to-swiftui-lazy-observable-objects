@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CasePaths
 
 func ??<A: View, B: View>(lhs: A?, rhs: B) -> some View {
   Group {
@@ -124,38 +125,94 @@ struct PrimaryButtonStyle: ButtonStyle {
   }
 }
 
-
 struct ContentView: View {
+  enum Action {
+    case playerView(PlayerView.Action)
+    case player(isPlaying: Bool, position: TimeInterval)
+  }
+  
   let store = RecordingStore.shared
-  static var stores = [UUID:(Store<PlayerView.State, PlayerView.Action>,PlayerViewEnvWrapper<Player>
-)]()
+  static var stores = [UUID:(Store<PlayerView.State, Action>,(Player, Cancellable)?)
+    ]()
   
   func playerStore(for recording:Recording) -> ViewStore<PlayerView.State, PlayerView.Action> {
+    
     if let store = ContentView.stores[recording.uuid] {
-      return store.0.view
+      return store.0.view.scope(value: { $0 }, action: { .playerView($0) })
     }
     
-    let playEnv = PlayerViewEnvWrapper<Player>({
-      guard let url = recording.fileURL else { return nil }
-      return Player(url: url)
+    let env : PlayerViewEnv = ({ self.loadPlayer(for: recording) },
+                               { self.togglePlay(for: recording) },
+                               { self.player(for: recording)?.time = $0 },
+                               { self.unloadPlayer(for: recording) })
+    
+    let reducer = Reducer<PlayerView.State, Action, Void>.combine(
+      playerViewReducer.pullback(value: \PlayerView.State.self,
+                                 action: /Action.playerView,
+                                 environment: { env }),
+      Reducer() { state, action, _ in
+        guard case let .player(isPlaying, position) = action else { return [] }
+        state.isPlaying = isPlaying
+        state.position = position
+        return []
     })
+    
     let state = PlayerView.State(name: recording.name, duration: 100, isPlaying: false)
-    let store = Store(initialValue: state, reducer: playerViewReducer.logging(), environment: playEnv.env)
-    ContentView.stores[recording.uuid] = (store, playEnv)
-    return store.view
+    let store = Store(initialValue: state, reducer: reducer.logging(), environment: ())
+    
+    ContentView.stores[recording.uuid] = (store, nil)
+    return store.view.scope(value: {
+      $0
+    }, action: { .playerView($0) })
+  }
+  
+  func loadPlayer(for recording:Recording)->TimeInterval {
+    guard var storage = ContentView.stores[recording.uuid],
+      let url = recording.fileURL,
+      let player = Player(url: url)
+      else { return 0 }
+    
+    let store = storage.0
+    
+    let cancelPlayer = player.$didChange.sink(receiveValue: {
+      store.view.send(
+        .player(isPlaying: player.isPlaying,
+                position: player.time))
+    })
+    
+    storage.1 = (player, cancelPlayer)
+    ContentView.stores[recording.uuid] = storage
+    
+    return player.duration
+  }
+  
+  func player(for recording:Recording) -> Player? {
+    return ContentView.stores[recording.uuid]?.1?.0
+  }
+  
+  func togglePlay(for recording: Recording) -> Bool {
+    player(for: recording)?.togglePlay()
+    return player(for: recording)?.isPlaying ?? false
+  }
+  
+  func unloadPlayer(for recording:Recording) {
+    guard var store = ContentView.stores[recording.uuid] else { return }
+    
+    store.1 = nil
+    ContentView.stores[recording.uuid] = store
   }
   
   func itemBuilder()-> (Item)->AnyView {
     return {item in
-    AnyView(
-      Group {
-      if item is Folder {
-        FolderList(folder: item as! Folder,
-                   itemBuilder: self.itemBuilder())
-      } else {
-        PlayerView(store: self.playerStore(for: item as! Recording))
-      }
-    })
+      AnyView(
+        Group {
+          if item is Folder {
+            FolderList(folder: item as! Folder,
+                       itemBuilder: self.itemBuilder())
+          } else {
+            PlayerView(store: self.playerStore(for: item as! Recording))
+          }
+      })
     }
   }
   
