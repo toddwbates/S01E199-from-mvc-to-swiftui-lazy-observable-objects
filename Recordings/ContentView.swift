@@ -19,18 +19,6 @@ func ??<A: View, B: View>(lhs: A?, rhs: B) -> some View {
   }
 }
 
-//extension Item {
-//    var destination: some View {
-//        Group {
-//            if self is Folder {
-//                FolderList(folder: self as! Folder)
-//            } else {
-//                PlayerView(recording: self as! Recording) ?? Text("Something went wrong.")
-//            }
-//        }
-//    }
-//}
-
 import Combine
 
 @dynamicMemberLookup
