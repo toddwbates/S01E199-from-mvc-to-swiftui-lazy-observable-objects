@@ -2,7 +2,7 @@ import Foundation
 import AVFoundation
 import Combine
 
-class Player: NSObject, AVAudioPlayerDelegate, ObservableObject {
+class Player: NSObject, AVAudioPlayerDelegate {
   private var audioPlayer: AVAudioPlayer
   private var timer: Timer?
   
@@ -35,7 +35,6 @@ class Player: NSObject, AVAudioPlayerDelegate, ObservableObject {
   }
   
   func togglePlay() {
-    self.objectWillChange.send()
     if audioPlayer.isPlaying {
       audioPlayer.pause()
       timer?.invalidate()
@@ -46,7 +45,6 @@ class Player: NSObject, AVAudioPlayerDelegate, ObservableObject {
         t.invalidate()
       }
       timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
-        self?.objectWillChange.send()
         self?.didChange = ()
       }
     }
@@ -57,7 +55,6 @@ class Player: NSObject, AVAudioPlayerDelegate, ObservableObject {
   func setProgress(_ time: TimeInterval) {
     guard time != audioPlayer.currentTime else { return }
     
-    self.objectWillChange.send()
     audioPlayer.currentTime = time
     didChange = ()
   }
@@ -78,14 +75,13 @@ class Player: NSObject, AVAudioPlayerDelegate, ObservableObject {
         t.invalidate()
       }
       timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
-        self?.objectWillChange.send()
         self?.didChange = ()
       }
     }
   }
   
   func audioPlayerDidFinishPlaying(_ pl: AVAudioPlayer, successfully flag: Bool) {
-    self.objectWillChange.send()
+    didChange = ()
     timer?.invalidate()
     timer = nil
   }
@@ -104,5 +100,23 @@ class Player: NSObject, AVAudioPlayerDelegate, ObservableObject {
   
   deinit {
     timer?.invalidate()
+  }
+}
+
+extension Player {
+  struct State {
+    var isPlaying: Bool
+    var position: TimeInterval
+  }
+  
+  enum Action {
+    case update(State)
+  }
+  
+  var state : State { return .init(isPlaying: isPlaying, position:time) }
+  static let reducer = Reducer<State, Action, ()>() { state, action, _ in
+      guard case let .update(newState) = action else { return [] }
+      state = newState
+      return []
   }
 }

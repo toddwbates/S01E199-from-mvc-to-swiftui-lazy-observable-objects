@@ -128,7 +128,7 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct ContentView: View {
   enum Action {
     case playerView(PlayerView.Action)
-    case player(isPlaying: Bool, position: TimeInterval)
+    case player(Player.Action)
   }
   
   let store = RecordingStore.shared
@@ -150,12 +150,10 @@ struct ContentView: View {
       playerViewReducer.pullback(value: \PlayerView.State.self,
                                  action: /Action.playerView,
                                  environment: { env }),
-      Reducer() { state, action, _ in
-        guard case let .player(isPlaying, position) = action else { return [] }
-        state.isPlaying = isPlaying
-        state.position = position
-        return []
-    })
+      Player.reducer.pullback(value: \.player.self,
+                                 action: /Action.player,
+                                 environment: {})
+    )
     
     let state = PlayerView.State(name: recording.name, duration: 100, isPlaying: false)
     let store = Store(initialValue: state, reducer: reducer.logging(), environment: ())
@@ -175,9 +173,7 @@ struct ContentView: View {
     let store = storage.0
     
     let cancelPlayer = player.$didChange.sink(receiveValue: {
-      store.view.send(
-        .player(isPlaying: player.isPlaying,
-                position: player.time))
+      store.view.send(.player(.update(player.state)))
     })
     
     storage.1 = (player, cancelPlayer)
@@ -221,6 +217,16 @@ struct ContentView: View {
       FolderList(folder: store.rootFolder, itemBuilder: itemBuilder())
     }
   }
+}
+
+extension PlayerView.State {
+  var player: Player.State {
+    get { .init(isPlaying: isPlaying, position:position) }
+    set {
+      isPlaying = newValue.isPlaying
+      position = newValue.position
+    }
+}
 }
 
 struct ContentView_Previews: PreviewProvider {

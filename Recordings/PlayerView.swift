@@ -10,33 +10,6 @@ import SwiftUI
 import CasePaths
 import Combine
 
-enum PlayerEnvAction : Equatable {
-  typealias Transform = (PlayerEnvAction) -> [Effect<PlayerView.Action>]
-  
-  case load
-  case unload
-  case position(TimeInterval)
-  case toggle
-  
-  enum Action : Equatable{
-    case duration(TimeInterval)
-    case isPlaying(Bool)
-    case position(TimeInterval)
-  }
-  
-  static func reducer(_ state:inout PlayerView.State,_ action:Action) {
-    switch action {
-    case let .duration(length):
-      state.duration = length
-    case let .isPlaying(isPlaying):
-      state.isPlaying = isPlaying
-    case let .position(time):
-      state.position = time
-    }
-  }
-  
-}
-
 typealias PlayerViewEnv = (load: ()->TimeInterval, togglePlay: ()->Bool, position: (TimeInterval)->(),unload: ()->())
 let playerViewReducer = Reducer<PlayerView.State, PlayerView.Action, PlayerViewEnv> { state, action, env in
     switch action {

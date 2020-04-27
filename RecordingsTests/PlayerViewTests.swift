@@ -13,65 +13,18 @@ import Combine
 @testable import UnitTestHostApp
 
 class PlayerViewTests: XCTestCase {
-  class Mock : PlayerType {
-    @Published var duration: TimeInterval = 100
-    @Published var time: TimeInterval = 0
-    @Published var isPlaying: Bool = false
-    
-    init() {
-    }
-    
-    func togglePlay() {
-      isPlaying = !isPlaying
-    }
-  }
-  
-    
-  func testWrapper() {
-    let wrapper = PlayerWrapper<Mock>(Mock.init)
-    let env : PlayerEnvAction.Transform = { action in
-      switch action {
-      case .load, .unload:
-        return wrapper.env(action)
-      default:
-        return []
-      }
-    }
-    assert(
-      initialValue: PlayerView.State(name: "Peter", duration: 0),
-      reducer: playerViewReducer,
-      environment: env,
-      steps:
-      Step(.send, .load) { _ in },
-      Step(.receive, .effectResult(.duration(100))) { $0.duration = 100 }
-    )
-  }
   
   var state = PlayerView.State(name: "Peter", duration: 0)
   
-  func env() -> PlayerEnvAction.Transform {
-    return {
-      switch $0 {
-      case .load:
-        return [Effect.sync {
-          return .effectResult(.duration( 100 ))
-          }]
-      case let .position(newPostion):
-        return [Effect.sync {
-          self.state.position = newPostion
-          return .effectResult(.position(newPostion))
-          }]
-      case .toggle:
-        return [Effect.sync {
-          self.state.isPlaying = !self.state.isPlaying
-          return .effectResult(.isPlaying(self.state.isPlaying))
-          }]
-      case .unload:
-        return [Effect.sync {
-          .effectResult(.isPlaying(false))
-          }]
-      }
-    }
+  func env() -> PlayerViewEnv {
+    var isPlaying = false
+
+    return (load: { return 100 },
+            togglePlay: {
+              isPlaying = !isPlaying
+              return isPlaying },
+            position: { _ in },
+            unload: { })
   }
   
   func testPlaySnapshot()  {
@@ -115,23 +68,12 @@ class PlayerViewTests: XCTestCase {
       reducer: playerViewReducer,
       environment: env(),
       steps:
-      Step(.send, .load) { _ in },
-      Step(.receive, .effectResult(.duration(100))) { $0.duration = 100 },
+      Step(.send, .load) { $0.duration = 100 },
       Step(.send, .setName("New Name")) { $0.name = "New Name" },
-      Step(.send, .togglePlay) { _ in },
-      Step(.receive, .effectResult(.isPlaying(true))) {
-        $0.isPlaying = true
-      },
-      Step(.send, .togglePlay) { _ in self.state.position = 20},
-      Step(.receive, .effectResult(.isPlaying(false))) {
-        $0.isPlaying = false
-      },
-      Step(.send, .setPostion(50)) { _ in  },
-      Step(.receive, .effectResult(.position(50))) {
-        $0.position = 50
-      },
-      Step(.send, .unload) { _ in  },
-      Step(.receive, .effectResult(.isPlaying(false))) { $0.isPlaying = false }
+      Step(.send, .togglePlay) { $0.isPlaying = true },
+      Step(.send, .togglePlay) { $0.isPlaying = false },
+      Step(.send, .setPostion(50)) { $0.position = 50  },
+      Step(.send, .unload) { _ in  }
     )
   }
 }
