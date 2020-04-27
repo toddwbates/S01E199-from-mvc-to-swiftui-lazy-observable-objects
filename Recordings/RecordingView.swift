@@ -58,3 +58,9 @@ struct RecordingView: View {
   }
 }
 
+extension RecordingView {
+  init(with uuid: UUID, isPresented: Binding<Bool>) {
+    let folder = Folder(name: "", uuid: uuid)
+    self.init(folder: folder, isPresented: isPresented)
+  }
+}

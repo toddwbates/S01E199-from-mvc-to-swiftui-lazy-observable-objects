@@ -261,4 +261,8 @@ extension ViewStore {
     return  { self.send( action ) }
   }
 
+  func curry<Value>(_ path:CasePath<Action, Value>)->(Value)->Void {
+    return  { self.send( path.embed($0) ) }
+  }
+
 }

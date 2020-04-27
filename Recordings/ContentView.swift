@@ -135,6 +135,23 @@ struct ContentView: View {
   static var stores = [UUID:(Store<PlayerView.State, Action>,(Player, Cancellable)?)
     ]()
   
+  static var folderStores = [UUID:Store<FolderList.State, FolderList.Action>]()
+  
+  func folderStore(for folder:Folder) -> ViewStore<FolderList.State, FolderList.Action> {
+    if let store = ContentView.folderStores[folder.id] {
+      return store.view(removeDuplicates: ==)
+    }
+    
+    let store = Store(initialValue: .init(with: folder),
+                      reducer: FolderList.reducer.logging(),
+                      environment: ({ UUID() }, {
+                        if let item = folder.item(atUUIDPath: [folder.uuid, $0]) {
+                          folder.remove(item)
+                        } }))
+    ContentView.folderStores[folder.uuid] = store
+    return store.view(removeDuplicates: ==)
+  }
+  
   func playerStore(for recording:Recording) -> ViewStore<PlayerView.State, PlayerView.Action> {
     
     if let store = ContentView.stores[recording.uuid] {
@@ -151,8 +168,8 @@ struct ContentView: View {
                                  action: /Action.playerView,
                                  environment: { env }),
       Player.reducer.pullback(value: \.player.self,
-                                 action: /Action.player,
-                                 environment: {})
+                              action: /Action.player,
+                              environment: {})
     )
     
     let state = PlayerView.State(name: recording.name, duration: 100, isPlaying: false)
@@ -198,23 +215,26 @@ struct ContentView: View {
     ContentView.stores[recording.uuid] = store
   }
   
-  func itemBuilder()-> (Item)->AnyView {
-    return {item in
-      AnyView(
-        Group {
-          if item is Folder {
-            FolderList(folder: item as! Folder,
-                       itemBuilder: self.itemBuilder())
-          } else {
-            PlayerView(store: self.playerStore(for: item as! Recording))
+  func itemBuilder(root:Folder)-> (FolderList.Item)->AnyView {
+    return {
+      let item = root.item(atUUIDPath: [root.uuid, $0.id])
+      return AnyView(
+        item.map({ $0 } ).map { item in
+          Group {
+            (item as? Folder).map { FolderList(store: self.folderStore(for: $0),
+                                               itemBuilder: self.itemBuilder(root:$0)) }
+            (item as? Recording).map {  PlayerView(store: self.playerStore(for: $0)) }
           }
-      })
+        }
+      )
+      
     }
   }
   
   var body: some View {
     NavigationView {
-      FolderList(folder: store.rootFolder, itemBuilder: itemBuilder())
+      FolderList(store: self.folderStore(for: store.rootFolder),
+                 itemBuilder: self.itemBuilder(root:store.rootFolder))
     }
   }
 }
@@ -226,7 +246,17 @@ extension PlayerView.State {
       isPlaying = newValue.isPlaying
       position = newValue.position
     }
+  }
 }
+
+extension FolderList.State {
+  init(with folder: Folder) {
+    name = folder.name
+    uuid = folder.uuid
+    items = folder.contents.map {
+      FolderList.Item(name: $0.name, id: $0.uuid, type: $0 is Folder ? .folder : .recording)
+    }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
